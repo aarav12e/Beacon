@@ -2,6 +2,7 @@ services:
   - type: web
     name: beacon-backend
     runtime: node
+    rootDir: backend
     plan: free
     startCommand: npm start
     envVars:
