@@ -34,14 +34,15 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('❌ MongoDB Error:', err));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-app.use('/api/auth',      require('./routes/auth'));
-app.use('/api/stocks',    require('./routes/stocks'));
-app.use('/api/ai',        require('./routes/ai'));
-app.use('/api/research',  require('./routes/research'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./routes/clerkAuth'));
+app.use('/api/stocks', require('./routes/stocks'));
+app.use('/api/ai', require('./routes/ai'));
+app.use('/api/research', require('./routes/research'));
 app.use('/api/watchlist', require('./routes/watchlist'));
-app.use('/api/analysis',  require('./routes/analysis'));
+app.use('/api/analysis', require('./routes/analysis'));
 app.use('/api/circulars', require('./routes/circulars'));
-app.use('/api/excel',     require('./routes/excel'));
+app.use('/api/excel', require('./routes/excel'));
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

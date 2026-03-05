@@ -4,20 +4,20 @@ import { useAuth } from '../../context/AuthContext';
 
 const NAV_ITEMS = [
   { path: '/dashboard', icon: '◈', label: 'Dashboard' },
-  { path: '/stocks',    icon: '△', label: 'Markets' },
-  { path: '/ai-chat',  icon: '◆', label: 'AI Terminal' },
+  { path: '/stocks', icon: '△', label: 'Markets' },
+  { path: '/ai-chat', icon: '◆', label: 'AI Terminal' },
   { path: '/research', icon: '◇', label: 'Research' },
-  { path: '/circulars',icon: '▣', label: 'Regulators' },
-  { path: '/excel',    icon: '⬡', label: 'Excel Agent' },
+  { path: '/circulars', icon: '▣', label: 'Regulators' },
+  { path: '/excel', icon: '⬡', label: 'Excel Agent' },
 ];
 
 export default function Sidebar() {
-  const navigate  = useNavigate();
-  const location  = useLocation();
+  const location = useLocation();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
-    <div style={{
+    <div className="sidebar" style={{
       width: '220px', minHeight: '100vh', flexShrink: 0,
       background: '#080D16',
       borderRight: '1px solid #1A2D45',
@@ -68,8 +68,8 @@ export default function Sidebar() {
               fontSize: '13px', fontFamily: 'var(--font-body)', fontWeight: active ? 600 : 400,
               cursor: 'pointer', transition: 'all 0.15s', textAlign: 'left',
             }}
-            onMouseEnter={e => { if (!active) { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#E8EDF5'; } }}
-            onMouseLeave={e => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#7A94B0'; } }}
+              onMouseEnter={e => { if (!active) { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#E8EDF5'; } }}
+              onMouseLeave={e => { if (!active) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#7A94B0'; } }}
             >
               <span style={{ fontSize: '14px', width: '18px' }}>{item.icon}</span>
               {item.label}

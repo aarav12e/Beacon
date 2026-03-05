@@ -6,10 +6,12 @@ const TYPES = ['all', 'fundamental', 'technical', 'macro', 'sector', 'custom'];
 const REC_COLORS = { buy: '#00D68F', sell: '#FF4757', hold: '#C8A84B', watch: '#00D4FF' };
 
 export default function ResearchPage() {
-  const [items, setItems]     = useState([]);
-  const [filter, setFilter]   = useState('all');
+  const [items, setItems] = useState([]);
+  const [filter, setFilter] = useState('all');
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
+  // Mobile: track whether we are showing the list or the detail
+  const [mobileView, setMobileView] = useState('list'); // 'list' | 'detail'
 
   useEffect(() => {
     researchAPI.getAll(filter !== 'all' ? { type: filter } : {})
@@ -21,15 +23,29 @@ export default function ResearchPage() {
   const deleteItem = async (id) => {
     await researchAPI.delete(id);
     setItems(prev => prev.filter(i => i._id !== id));
-    if (selected?._id === id) setSelected(null);
+    if (selected?._id === id) { setSelected(null); setMobileView('list'); }
+  };
+
+  const handleSelect = (item) => {
+    setSelected(item);
+    setMobileView('detail');
   };
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <Sidebar />
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        {/* List panel */}
-        <div style={{ width: '340px', borderRight: '1px solid #1A2D45', display: 'flex', flexDirection: 'column' }}>
+        {/* List panel — hidden on mobile when detail is open */}
+        <div
+          className="research-list-panel"
+          style={{
+            width: '340px',
+            borderRight: '1px solid #1A2D45',
+            display: 'flex',
+            flexDirection: 'column',
+            // hide on mobile when detail is shown
+          }}
+        >
           <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid #1A2D45', background: '#080D16' }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '18px', color: '#E8EDF5', marginBottom: '12px' }}>Research Library</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -45,54 +61,69 @@ export default function ResearchPage() {
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {loading ? <div style={{ textAlign: 'center', padding: '40px', color: '#7A94B0' }}>Loading...</div> :
-             items.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '60px 20px', color: '#3D5470' }}>
-                <div style={{ fontSize: '28px', marginBottom: '10px' }}>◇</div>
-                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>No research saved yet</div>
-                <div style={{ fontSize: '12px', color: '#3D5470', marginTop: '6px' }}>Generate reports in the AI Terminal or Stock Research pages</div>
-              </div>
-             ) : items.map(item => (
-              <div
-                key={item._id}
-                onClick={() => setSelected(item)}
-                style={{
-                  padding: '16px 20px', borderBottom: '1px solid #1A2D45', cursor: 'pointer',
-                  background: selected?._id === item._id ? 'rgba(200,168,75,0.06)' : 'transparent',
-                  transition: 'background 0.15s',
-                }}
-                onMouseEnter={e => { if (selected?._id !== item._id) e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; }}
-                onMouseLeave={e => { if (selected?._id !== item._id) e.currentTarget.style.background = 'transparent'; }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', padding: '2px 6px', background: '#111D2E', color: '#7A94B0', borderRadius: '2px', textTransform: 'uppercase' }}>
-                    {item.type}
-                  </span>
-                  {item.recommendation && (
-                    <span style={{
-                      fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700,
-                      color: REC_COLORS[item.recommendation], letterSpacing: '0.06em',
-                    }}>
-                      {item.recommendation.toUpperCase()}
+              items.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 20px', color: '#3D5470' }}>
+                  <div style={{ fontSize: '28px', marginBottom: '10px' }}>◇</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>No research saved yet</div>
+                  <div style={{ fontSize: '12px', color: '#3D5470', marginTop: '6px' }}>Generate reports in the AI Terminal or Stock Research pages</div>
+                </div>
+              ) : items.map(item => (
+                <div
+                  key={item._id}
+                  onClick={() => handleSelect(item)}
+                  style={{
+                    padding: '16px 20px', borderBottom: '1px solid #1A2D45', cursor: 'pointer',
+                    background: selected?._id === item._id ? 'rgba(200,168,75,0.06)' : 'transparent',
+                    transition: 'background 0.15s',
+                  }}
+                  onMouseEnter={e => { if (selected?._id !== item._id) e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; }}
+                  onMouseLeave={e => { if (selected?._id !== item._id) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', padding: '2px 6px', background: '#111D2E', color: '#7A94B0', borderRadius: '2px', textTransform: 'uppercase' }}>
+                      {item.type}
                     </span>
-                  )}
+                    {item.recommendation && (
+                      <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 700,
+                        color: REC_COLORS[item.recommendation], letterSpacing: '0.06em',
+                      }}>
+                        {item.recommendation.toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#E8EDF5', marginBottom: '4px', lineHeight: '1.3' }}>{item.title}</div>
+                  <div style={{ fontSize: '11px', color: '#3D5470', fontFamily: 'var(--font-mono)' }}>
+                    {new Date(item.createdAt).toLocaleDateString('en-IN')}
+                    {item.symbol && ` · ${item.symbol}`}
+                  </div>
                 </div>
-                <div style={{ fontSize: '13px', fontWeight: 600, color: '#E8EDF5', marginBottom: '4px', lineHeight: '1.3' }}>{item.title}</div>
-                <div style={{ fontSize: '11px', color: '#3D5470', fontFamily: 'var(--font-mono)' }}>
-                  {new Date(item.createdAt).toLocaleDateString('en-IN')}
-                  {item.symbol && ` · ${item.symbol}`}
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 
         {/* Detail panel */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px' }}>
+        <div className="research-detail-panel" style={{ flex: 1, overflowY: 'auto', padding: '28px 32px' }}>
           {selected ? (
             <>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+              {/* Mobile back button */}
+              <button
+                onClick={() => { setMobileView('list'); }}
+                style={{
+                  display: 'none', // shown via CSS on mobile
+                  marginBottom: '16px',
+                  padding: '8px 16px', borderRadius: '6px',
+                  background: 'rgba(200,168,75,0.1)', border: '1px solid rgba(200,168,75,0.3)',
+                  color: '#C8A84B', fontSize: '12px', fontFamily: 'var(--font-mono)', cursor: 'pointer',
+                }}
+                className="research-back-btn"
+              >
+                ← Back to List
+              </button>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px' }}>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', padding: '3px 8px', background: '#111D2E', color: '#7A94B0', borderRadius: '2px', textTransform: 'uppercase' }}>
                       {selected.type}
                     </span>
@@ -136,6 +167,24 @@ export default function ResearchPage() {
           )}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .research-list-panel {
+            width: 100% !important;
+            display: ${mobileView === 'list' ? 'flex' : 'none'} !important;
+            flex-direction: column;
+          }
+          .research-detail-panel {
+            display: ${mobileView === 'detail' ? 'block' : 'none'} !important;
+            width: 100% !important;
+            padding: 20px 16px !important;
+          }
+          .research-back-btn {
+            display: block !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -68,10 +68,10 @@ const areaData = Array.from({ length: 60 }, (_, i) => ({
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const [summary, setSummary]   = useState(null);
-  const [movers, setMovers]     = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [time, setTime]         = useState(new Date());
+  const [summary, setSummary] = useState(null);
+  const [movers, setMovers] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
     Promise.all([stocksAPI.marketSummary(), stocksAPI.movers()])
@@ -88,7 +88,7 @@ export default function Dashboard() {
       <Sidebar />
       <div style={{ flex: 1, overflowX: 'hidden' }}>
         {/* Top bar */}
-        <div style={{
+        <div className="page-header" style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           padding: '16px 32px', borderBottom: '1px solid #1A2D45',
           background: '#080D16', position: 'sticky', top: 0, zIndex: 50,
@@ -101,8 +101,8 @@ export default function Dashboard() {
               {time.toLocaleString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', padding: '8px 16px', background: '#0D1520', borderRadius: '6px', border: '1px solid #1A2D45' }}>
+          <div className="dash-topbar-right" style={{ display: 'flex', gap: '10px' }}>
+            <div className="dash-badge-market" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', padding: '8px 16px', background: '#0D1520', borderRadius: '6px', border: '1px solid #1A2D45' }}>
               NSE · Market Hours
             </div>
             <div style={{
@@ -116,9 +116,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div style={{ padding: '28px 32px' }}>
+        <div style={{ padding: '28px 32px' }} className="page-content">
           {/* Market indices */}
-          <div style={{ marginBottom: '28px' }}>
+          <div className="market-grid" style={{ marginBottom: '28px' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', letterSpacing: '0.1em', marginBottom: '16px' }}>
               ◈ MARKET OVERVIEW
             </div>
@@ -130,7 +130,7 @@ export default function Dashboard() {
           </div>
 
           {/* Main content grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
+          <div className="dash-main-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px' }}>
             {/* NIFTY area chart */}
             <div style={{ background: '#0D1520', border: '1px solid #1A2D45', borderRadius: '10px', padding: '20px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
@@ -140,7 +140,7 @@ export default function Dashboard() {
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#00D68F' }}>+142.35 (+0.64%)</div>
                 </div>
                 <div style={{ display: 'flex', gap: '6px' }}>
-                  {['1D','1W','1M','3M','1Y'].map(p => (
+                  {['1D', '1W', '1M', '3M', '1Y'].map(p => (
                     <button key={p} style={{
                       padding: '4px 10px', borderRadius: '4px', border: '1px solid #1A2D45',
                       background: p === '1D' ? 'rgba(200,168,75,0.15)' : 'transparent',
@@ -154,13 +154,13 @@ export default function Dashboard() {
                 <AreaChart data={areaData}>
                   <defs>
                     <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%"  stopColor="#C8A84B" stopOpacity={0.2} />
+                      <stop offset="5%" stopColor="#C8A84B" stopOpacity={0.2} />
                       <stop offset="95%" stopColor="#C8A84B" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1A2D45" />
                   <XAxis dataKey="t" hide />
-                  <YAxis domain={['auto','auto']} tick={{ fill: '#3D5470', fontSize: 10, fontFamily: 'DM Mono' }} width={55} tickFormatter={v => v.toFixed(0)} />
+                  <YAxis domain={['auto', 'auto']} tick={{ fill: '#3D5470', fontSize: 10, fontFamily: 'DM Mono' }} width={55} tickFormatter={v => v.toFixed(0)} />
                   <Tooltip
                     contentStyle={{ background: '#0D1520', border: '1px solid #1A2D45', borderRadius: '6px', fontFamily: 'DM Mono', fontSize: '12px' }}
                     labelStyle={{ color: '#7A94B0' }}
@@ -190,7 +190,7 @@ export default function Dashboard() {
           </div>
 
           {/* Quick actions */}
-          <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+          <div className="dash-actions-grid" style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
             {[
               { icon: '◆', title: 'AI Analysis', desc: 'Analyze any stock with Claude', path: '/ai-chat', color: '#C8A84B' },
               { icon: '⬡', title: 'Excel Agent', desc: 'Upload financial statements', path: '/excel', color: '#00D4FF' },
@@ -202,8 +202,8 @@ export default function Dashboard() {
                 borderRadius: '10px', padding: '20px', cursor: 'pointer',
                 transition: 'all 0.2s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = action.color + '55'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = action.color + '22'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = action.color + '55'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = action.color + '22'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
                 <div style={{ fontSize: '20px', color: action.color, marginBottom: '10px' }}>{action.icon}</div>
                 <div style={{ fontSize: '14px', fontWeight: 600, color: '#E8EDF5', marginBottom: '4px' }}>{action.title}</div>

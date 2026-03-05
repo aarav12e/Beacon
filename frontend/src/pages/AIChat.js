@@ -49,10 +49,10 @@ export default function AIChat() {
     role: 'assistant',
     content: '◆ Welcome to Beacon AI Terminal — powered by Claude.\n\nI\'m your expert financial analyst for Indian and global markets. Ask me anything about:\n\n• Stock analysis (fundamental & technical)\n• SEBI/RBI regulations and circulars\n• Macro economics and sector outlook\n• Financial statement analysis\n• Portfolio strategy and risk management\n\nWhat would you like to research today?'
   }]);
-  const [input, setInput]     = useState('');
+  const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [mode, setMode]       = useState('chat');
-  const bottomRef             = useRef(null);
+  const [mode, setMode] = useState('chat');
+  const bottomRef = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -90,7 +90,7 @@ export default function AIChat() {
       <Sidebar />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', maxHeight: '100vh' }}>
         {/* Header */}
-        <div style={{
+        <div className="page-header" style={{
           padding: '16px 32px', borderBottom: '1px solid #1A2D45',
           background: '#080D16', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
@@ -100,7 +100,7 @@ export default function AIChat() {
               Claude · Financial Analysis Engine
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="aichat-mode-tabs" style={{ display: 'flex', gap: '8px' }}>
             {['chat', 'stock-analysis', 'macro'].map(m => (
               <button key={m} onClick={() => setMode(m)} style={{
                 padding: '6px 14px', borderRadius: '4px',
@@ -117,7 +117,7 @@ export default function AIChat() {
         </div>
 
         {/* Messages */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '0 32px' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 16px' }} className="page-content">
           {messages.map((m, i) => <Message key={i} {...m} />)}
           {loading && (
             <div style={{ padding: '20px 0', display: 'flex', gap: '16px', alignItems: 'center' }}>
@@ -127,7 +127,7 @@ export default function AIChat() {
                 display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px',
               }}>◆</div>
               <div style={{ display: 'flex', gap: '6px' }}>
-                {[0,1,2].map(i => (
+                {[0, 1, 2].map(i => (
                   <div key={i} style={{
                     width: '8px', height: '8px', borderRadius: '50%', background: '#C8A84B',
                     animation: `pulse 1.2s ${i * 0.2}s infinite`,
@@ -141,7 +141,7 @@ export default function AIChat() {
 
         {/* Starter prompts */}
         {messages.length <= 1 && (
-          <div style={{ padding: '0 32px 16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ padding: '0 16px 16px', display: 'flex', gap: '8px', flexWrap: 'wrap' }} className="page-content">
             {STARTER_PROMPTS.map(p => (
               <button key={p} onClick={() => send(p)} style={{
                 padding: '8px 14px', borderRadius: '20px',
@@ -149,8 +149,8 @@ export default function AIChat() {
                 color: '#C8A84B', fontSize: '12px', cursor: 'pointer', fontFamily: 'var(--font-body)',
                 transition: 'all 0.2s',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(200,168,75,0.15)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(200,168,75,0.08)'}
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(200,168,75,0.15)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(200,168,75,0.08)'}
               >
                 {p.length > 50 ? p.substring(0, 50) + '...' : p}
               </button>
@@ -159,7 +159,7 @@ export default function AIChat() {
         )}
 
         {/* Input */}
-        <div style={{ padding: '16px 32px 24px', borderTop: '1px solid #1A2D45', background: '#080D16' }}>
+        <div className="page-header" style={{ padding: '16px 16px 24px', borderTop: '1px solid #1A2D45', background: '#080D16' }}>
           <div style={{
             display: 'flex', gap: '12px',
             background: '#0D1520', border: '1px solid #1A2D45', borderRadius: '8px', padding: '12px 16px',

@@ -1,0 +1,251 @@
+/* ============================================================
+   Beacon — Mobile Responsive Overrides
+   Breakpoints: ≤768px (mobile), 769px–1024px (tablet)
+   ============================================================ */
+
+/* ── Utility helpers ── */
+.mob-hidden   { display: none !important; }
+.mob-visible  { display: flex !important; }
+.mob-block    { display: block !important; }
+
+/* ── Page wrapper when sidebar is hidden ── */
+.page-with-sidebar {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── App shell with bottom-nav padding ── */
+.mob-shell-content {
+  flex: 1;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   BOTTOM NAV (visible only on mobile)
+   ============================================================ */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #080D16;
+  border-top: 1px solid #1A2D45;
+  height: 62px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  backdrop-filter: blur(12px);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #7A94B0;
+  font-size: 11px;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+  flex: 1;
+  min-width: 0;
+}
+.bottom-nav-item.active {
+  color: #C8A84B;
+}
+.bottom-nav-item .nav-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.bottom-nav-item .nav-label {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+.landing-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.landing-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.landing-nav-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ============================================================
+   MOBILE MEDIA QUERY  ( ≤ 768px )
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ── Body safe area for bottom nav ── */
+  body {
+    padding-bottom: 62px;
+  }
+
+  /* ── Sidebar: hide on mobile ── */
+  .sidebar {
+    display: none !important;
+  }
+
+  /* ── Bottom nav: show on mobile ── */
+  .bottom-nav {
+    display: flex;
+  }
+
+  /* ── Landing Page ── */
+  .landing-nav-links .btn-ghost {
+    display: none;
+  }
+
+  .landing-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .landing-hero-svg {
+    display: none;
+  }
+
+  .landing-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-cta-padding {
+    padding: 40px 24px !important;
+  }
+
+  .landing-cta-title {
+    font-size: clamp(28px, 8vw, 48px) !important;
+  }
+
+  .landing-footer {
+    flex-direction: column !important;
+    gap: 8px !important;
+    text-align: center !important;
+  }
+
+  /* ── Dashboard ── */
+  .dash-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dash-actions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .dash-topbar-right .dash-badge-market {
+    display: none;
+  }
+
+  /* ── Stock Research ── */
+  .stock-stat-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .stock-ai-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .stock-ai-controls {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .stock-ai-controls select,
+  .stock-ai-controls button {
+    flex: 1;
+  }
+
+  /* ── Excel Agent ── */
+  .excel-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .excel-formula-row {
+    flex-direction: column !important;
+  }
+
+  /* ── Research Page ── */
+  .research-list-panel {
+    width: 100% !important;
+    border-right: none !important;
+  }
+
+  .research-detail-panel {
+    padding: 20px 16px !important;
+  }
+
+  /* ── AI Chat ── */
+  .aichat-mode-tabs {
+    overflow-x: auto;
+    gap: 4px;
+  }
+  .aichat-mode-tabs button {
+    padding: 5px 8px !important;
+    font-size: 10px !important;
+    white-space: nowrap;
+  }
+
+  /* ── Shared padding overrides ── */
+  .page-header {
+    padding: 14px 16px !important;
+  }
+
+  .page-content {
+    padding: 16px !important;
+  }
+}
+
+/* ============================================================
+   TABLET MEDIA QUERY  ( 769px – 1024px )
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .landing-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-hero-grid {
+    gap: 40px;
+  }
+
+  .dash-actions-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .stock-stat-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}

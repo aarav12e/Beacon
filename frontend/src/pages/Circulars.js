@@ -11,8 +11,8 @@ function CircularCard({ item, onSummarise }) {
       background: '#0D1520', border: '1px solid #1A2D45', borderRadius: '10px', padding: '20px',
       marginBottom: '12px', transition: 'border-color 0.2s',
     }}
-    onMouseEnter={e => e.currentTarget.style.borderColor = '#1F3550'}
-    onMouseLeave={e => e.currentTarget.style.borderColor = '#1A2D45'}
+      onMouseEnter={e => e.currentTarget.style.borderColor = '#1F3550'}
+      onMouseLeave={e => e.currentTarget.style.borderColor = '#1A2D45'}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
         <div style={{ flex: 1 }}>
@@ -75,9 +75,9 @@ function CircularCard({ item, onSummarise }) {
 
 export default function Circulars() {
   const [circulars, setCirculars] = useState([]);
-  const [filter, setFilter]       = useState('ALL');
-  const [loading, setLoading]     = useState(true);
-  const [items, setItems]         = useState([]);
+  const [filter, setFilter] = useState('ALL');
+  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     circularsAPI.getAll({ source: filter === 'ALL' ? undefined : filter })
@@ -104,7 +104,7 @@ export default function Circulars() {
     <div style={{ display: 'flex', minHeight: '100vh' }}>
       <Sidebar />
       <div style={{ flex: 1, overflowX: 'hidden' }}>
-        <div style={{ padding: '20px 32px', borderBottom: '1px solid #1A2D45', background: '#080D16' }}>
+        <div className="page-header" style={{ padding: '20px 32px', borderBottom: '1px solid #1A2D45', background: '#080D16' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: '#E8EDF5', marginBottom: '4px' }}>Regulatory Intelligence</h2>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', marginBottom: '16px' }}>
             SEBI · RBI · NSE · BSE · MCA Circulars — AI Summarised
@@ -122,7 +122,7 @@ export default function Circulars() {
           </div>
         </div>
 
-        <div style={{ padding: '24px 32px' }}>
+        <div className="page-content" style={{ padding: '24px 32px' }}>
           {loading ? (
             <div style={{ textAlign: 'center', padding: '60px', color: '#7A94B0' }}>Loading circulars...</div>
           ) : items.length === 0 ? (

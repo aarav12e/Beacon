@@ -3,14 +3,14 @@ import Sidebar from '../components/common/Sidebar';
 import { excelAPI } from '../services/api';
 
 export default function ExcelAgent() {
-  const [file, setFile]         = useState(null);
-  const [result, setResult]     = useState(null);
-  const [loading, setLoading]   = useState(false);
+  const [file, setFile] = useState(null);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [question, setQuestion] = useState('');
-  const [formula, setFormula]   = useState('');
+  const [formula, setFormula] = useState('');
   const [fLoading, setFLoading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
-  const inputRef                = useRef(null);
+  const inputRef = useRef(null);
 
   const handleFile = (f) => {
     if (!f) return;
@@ -47,15 +47,15 @@ export default function ExcelAgent() {
       <Sidebar />
       <div style={{ flex: 1, overflowX: 'hidden' }}>
         {/* Header */}
-        <div style={{ padding: '20px 32px', borderBottom: '1px solid #1A2D45', background: '#080D16' }}>
+        <div className="page-header" style={{ padding: '20px 32px', borderBottom: '1px solid #1A2D45', background: '#080D16' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: '#E8EDF5' }}>Excel AI Agent</h2>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', marginTop: '4px' }}>
             Upload financial statements · Get AI analysis · Formula assistance
           </div>
         </div>
 
-        <div style={{ padding: '28px 32px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+        <div className="page-content" style={{ padding: '28px 32px' }}>
+          <div className="excel-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
             {/* Upload */}
             <div>
               <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#7A94B0', letterSpacing: '0.08em', marginBottom: '16px' }}>
@@ -79,7 +79,7 @@ export default function ExcelAgent() {
                   {file ? file.name : 'Drop your Excel file here'}
                 </div>
                 <div style={{ color: '#7A94B0', fontSize: '13px' }}>
-                  {file ? `${(file.size/1024/1024).toFixed(2)} MB · Click to change` : 'Supports .xlsx · .xls · .csv'}
+                  {file ? `${(file.size / 1024 / 1024).toFixed(2)} MB · Click to change` : 'Supports .xlsx · .xls · .csv'}
                 </div>
                 <input ref={inputRef} type="file" accept=".xlsx,.xls,.csv" style={{ display: 'none' }} onChange={e => handleFile(e.target.files[0])} />
               </div>
@@ -151,7 +151,7 @@ export default function ExcelAgent() {
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#00D4FF', letterSpacing: '0.08em', marginBottom: '16px' }}>
               ⬡ EXCEL FORMULA ASSISTANT
             </div>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
+            <div className="excel-formula-row" style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
               <input
                 value={question}
                 onChange={e => setQuestion(e.target.value)}

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 const TICKER_DATA = [
   { symbol: 'NIFTY 50', value: '22,547', change: '+0.64%', up: true },
-  { symbol: 'SENSEX',   value: '74,339', change: '+0.66%', up: true },
-  { symbol: 'USD/INR',  value: '83.42',  change: '-0.10%', up: false },
-  { symbol: 'GOLD',     value: '₹71,250',change: '+0.54%', up: true },
-  { symbol: 'TCS',      value: '4,120',  change: '+2.87%', up: true },
-  { symbol: 'RELIANCE', value: '2,945',  change: '+3.42%', up: true },
-  { symbol: 'INFY',     value: '1,845',  change: '+2.14%', up: true },
-  { symbol: 'CRUDE OIL',value: '₹6,542', change: '-1.24%', up: false },
+  { symbol: 'SENSEX', value: '74,339', change: '+0.66%', up: true },
+  { symbol: 'USD/INR', value: '83.42', change: '-0.10%', up: false },
+  { symbol: 'GOLD', value: '₹71,250', change: '+0.54%', up: true },
+  { symbol: 'TCS', value: '4,120', change: '+2.87%', up: true },
+  { symbol: 'RELIANCE', value: '2,945', change: '+3.42%', up: true },
+  { symbol: 'INFY', value: '1,845', change: '+2.14%', up: true },
+  { symbol: 'CRUDE OIL', value: '₹6,542', change: '-1.24%', up: false },
 ];
 
 function AnimatedHeroSVG() {
@@ -27,26 +27,26 @@ function AnimatedHeroSVG() {
       >
         <defs>
           <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stopColor="#C8A84B" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#C8A84B" stopOpacity="0.3" />
             <stop offset="100%" stopColor="#C8A84B" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stopColor="#00D4FF" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="#00D4FF" stopOpacity="0.2" />
             <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="chartLine" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stopColor="#C8A84B" stopOpacity="0" />
-            <stop offset="40%"  stopColor="#C8A84B" stopOpacity="1" />
-            <stop offset="80%"  stopColor="#00D4FF" stopOpacity="1" />
+            <stop offset="0%" stopColor="#C8A84B" stopOpacity="0" />
+            <stop offset="40%" stopColor="#C8A84B" stopOpacity="1" />
+            <stop offset="80%" stopColor="#00D4FF" stopOpacity="1" />
             <stop offset="100%" stopColor="#00D4FF" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#C8A84B" stopOpacity="0.15" />
+            <stop offset="0%" stopColor="#C8A84B" stopOpacity="0.15" />
             <stop offset="100%" stopColor="#C8A84B" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="gridFade" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stopColor="#1A2D45" stopOpacity="0" />
-            <stop offset="50%"  stopColor="#1A2D45" stopOpacity="1" />
+            <stop offset="0%" stopColor="#1A2D45" stopOpacity="0" />
+            <stop offset="50%" stopColor="#1A2D45" stopOpacity="1" />
             <stop offset="100%" stopColor="#1A2D45" stopOpacity="0" />
           </linearGradient>
           <filter id="blur-glow">
@@ -62,25 +62,19 @@ function AnimatedHeroSVG() {
           </clipPath>
         </defs>
 
-        {/* Background */}
         <rect width="900" height="520" fill="#04060A" />
-
-        {/* Ambient glow blobs */}
         <ellipse cx="200" cy="260" rx="300" ry="200" fill="url(#glow1)" />
         <ellipse cx="700" cy="200" rx="250" ry="180" fill="url(#glow2)" />
 
-        {/* Grid lines horizontal */}
         {[80, 160, 240, 320, 400].map((y, i) => (
           <line key={i} x1="60" y1={y} x2="840" y2={y} stroke="url(#gridFade)" strokeWidth="0.5" />
         ))}
-        {/* Grid lines vertical */}
         {[150, 280, 410, 540, 670, 790].map((x, i) => (
           <line key={i} x1={x} y1="40" x2={x} y2="420" stroke="#1A2D45" strokeWidth="0.5" strokeOpacity="0.5" />
         ))}
 
-        {/* Y axis labels */}
         {[
-          { y: 80,  label: '24,500' },
+          { y: 80, label: '24,500' },
           { y: 160, label: '23,500' },
           { y: 240, label: '22,500' },
           { y: 320, label: '21,500' },
@@ -91,14 +85,11 @@ function AnimatedHeroSVG() {
           </text>
         ))}
 
-        {/* Main candlestick chart */}
         <g clipPath="url(#chart-clip)">
-          {/* Area fill under chart */}
           <path
             d="M70,300 C100,290 130,280 160,260 C190,240 220,310 250,290 C280,270 310,220 340,200 C370,180 400,230 430,210 C460,190 490,150 520,130 C550,110 580,170 610,150 C640,130 670,100 700,90 C730,80 760,120 790,100 L790,400 L70,400 Z"
             fill="url(#chartFill)"
           />
-          {/* Main price line */}
           <path
             d="M70,300 C100,290 130,280 160,260 C190,240 220,310 250,290 C280,270 310,220 340,200 C370,180 400,230 430,210 C460,190 490,150 520,130 C550,110 580,170 610,150 C640,130 670,100 700,90 C730,80 760,120 790,100"
             stroke="url(#chartLine)"
@@ -106,9 +97,8 @@ function AnimatedHeroSVG() {
             filter="url(#line-glow)"
           />
 
-          {/* Candlesticks */}
           {[
-            { x: 95,  open: 295, close: 280, high: 270, low: 310 },
+            { x: 95, open: 295, close: 280, high: 270, low: 310 },
             { x: 155, open: 265, close: 255, high: 245, low: 275 },
             { x: 215, open: 305, close: 315, high: 295, low: 325 },
             { x: 275, open: 285, close: 270, high: 260, low: 295 },
@@ -118,7 +108,7 @@ function AnimatedHeroSVG() {
             { x: 515, open: 135, close: 125, high: 115, low: 145 },
             { x: 575, open: 175, close: 165, high: 155, low: 185 },
             { x: 635, open: 155, close: 140, high: 130, low: 165 },
-            { x: 695, open: 95,  close: 85,  high: 75,  low: 105 },
+            { x: 695, open: 95, close: 85, high: 75, low: 105 },
             { x: 755, open: 125, close: 115, high: 105, low: 135 },
           ].map((c, i) => {
             const isUp = c.close < c.open;
@@ -139,7 +129,6 @@ function AnimatedHeroSVG() {
           })}
         </g>
 
-        {/* Moving average line */}
         <path
           d="M70,300 C150,280 230,270 310,220 C390,170 470,175 550,140 C630,105 710,95 790,88"
           stroke="#00D4FF"
@@ -149,7 +138,6 @@ function AnimatedHeroSVG() {
           clipPath="url(#chart-clip)"
         />
 
-        {/* Floating data cards */}
         <g transform="translate(620, 50)">
           <rect width="220" height="90" rx="8" fill="#0D1520" stroke="#1A2D45" strokeWidth="1" />
           <rect width="220" height="90" rx="8" fill="#C8A84B" fillOpacity="0.05" />
@@ -168,7 +156,6 @@ function AnimatedHeroSVG() {
           <text x="14" y="66" fill="#00D68F" fontSize="11" fontFamily="DM Mono">+487.00  +0.66%</text>
         </g>
 
-        {/* AI Analysis card */}
         <g transform="translate(30, 165)">
           <rect width="200" height="120" rx="8" fill="#0D1520" stroke="#C8A84B" strokeWidth="0.5" strokeOpacity="0.5" />
           <rect width="200" height="30" rx="8" fill="#C8A84B" fillOpacity="0.1" />
@@ -181,7 +168,6 @@ function AnimatedHeroSVG() {
           <rect x="14" y="110" width="60" height="1" fill="#C8A84B" fillOpacity="0.4" />
         </g>
 
-        {/* Volume bars at bottom */}
         <g opacity="0.5" clipPath="url(#chart-clip)">
           {[70, 130, 190, 250, 310, 370, 430, 490, 550, 610, 670, 730, 790].map((x, i) => {
             const h = Math.random() * 30 + 10;
@@ -201,19 +187,16 @@ function AnimatedHeroSVG() {
           })}
         </g>
 
-        {/* Bottom X axis */}
         {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map((m, i) => (
           <text key={i} x={150 + i * 130} y="440" fill="#3D5470" fontSize="10" textAnchor="middle" fontFamily="DM Mono">
             {m} '25
           </text>
         ))}
 
-        {/* Beacon logo watermark */}
         <text x="450" y="500" fill="#1A2D45" fontSize="48" fontFamily="DM Serif Display" textAnchor="middle" opacity="0.3">
           BEACON
         </text>
 
-        {/* Animated scan line */}
         <rect width="900" height="2" fill="url(#chartLine)" opacity="0.15">
           <animateTransform
             attributeName="transform"
@@ -225,7 +208,6 @@ function AnimatedHeroSVG() {
           />
         </rect>
 
-        {/* Corner brackets */}
         <path d="M60,40 L60,60 M60,40 L80,40" stroke="#C8A84B" strokeWidth="1.5" opacity="0.6" />
         <path d="M840,40 L840,60 M840,40 L820,40" stroke="#C8A84B" strokeWidth="1.5" opacity="0.6" />
         <path d="M60,420 L60,400 M60,420 L80,420" stroke="#C8A84B" strokeWidth="1.5" opacity="0.6" />
@@ -273,6 +255,7 @@ function Ticker() {
 export default function LandingPage() {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 100);
@@ -283,27 +266,27 @@ export default function LandingPage() {
       {/* Nav */}
       <nav style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 48px', height: '64px',
+        padding: '0 24px', height: '60px',
         background: 'rgba(4,6,10,0.95)',
         borderBottom: '1px solid #1A2D45',
         position: 'sticky', top: 0, zIndex: 100,
         backdropFilter: 'blur(12px)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <svg width="28" height="28" viewBox="0 0 28 28">
+          <svg width="26" height="26" viewBox="0 0 28 28">
             <polygon points="14,2 26,26 2,26" fill="none" stroke="#C8A84B" strokeWidth="2" />
             <polygon points="14,8 22,24 6,24" fill="#C8A84B" opacity="0.2" />
             <line x1="14" y1="2" x2="14" y2="26" stroke="#C8A84B" strokeWidth="1" opacity="0.5" />
           </svg>
-          <span style={{ fontFamily: 'var(--font-display)', fontSize: '22px', color: '#E8EDF5', letterSpacing: '0.04em' }}>
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: '#E8EDF5', letterSpacing: '0.04em' }}>
             Beacon
           </span>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#C8A84B', marginLeft: '4px', letterSpacing: '0.12em' }}>
+          <span className="landing-tagline" style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#C8A84B', marginLeft: '4px', letterSpacing: '0.12em' }}>
             FINANCIAL INTELLIGENCE
           </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div className="landing-nav-links" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           {['Markets', 'Research', 'AI Agents', 'Regulators'].map(item => (
             <button key={item} className="btn-ghost" style={{ fontSize: '13px' }}>{item}</button>
           ))}
@@ -328,18 +311,18 @@ export default function LandingPage() {
 
       {/* Hero */}
       <div style={{
-        maxWidth: '1280px', margin: '0 auto', padding: '80px 48px 0',
+        maxWidth: '1280px', margin: '0 auto', padding: '60px 24px 0',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'all 0.8s ease',
       }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+        <div className="landing-hero-grid">
           {/* Left */}
           <div>
             <div style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
               background: 'rgba(200,168,75,0.1)', border: '1px solid rgba(200,168,75,0.3)',
-              borderRadius: '2px', padding: '6px 14px', marginBottom: '32px',
+              borderRadius: '2px', padding: '6px 14px', marginBottom: '28px',
             }}>
               <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00D68F', animation: 'pulse 1.5s infinite' }} />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#C8A84B', letterSpacing: '0.12em' }}>
@@ -349,10 +332,10 @@ export default function LandingPage() {
 
             <h1 style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '64px',
+              fontSize: 'clamp(36px, 6vw, 64px)',
               lineHeight: '1.05',
               color: '#E8EDF5',
-              marginBottom: '24px',
+              marginBottom: '20px',
               letterSpacing: '-0.01em',
             }}>
               Where AI Meets<br />
@@ -360,37 +343,37 @@ export default function LandingPage() {
             </h1>
 
             <p style={{
-              fontSize: '17px', color: '#7A94B0', lineHeight: '1.7', marginBottom: '40px', maxWidth: '460px',
+              fontSize: '16px', color: '#7A94B0', lineHeight: '1.7', marginBottom: '32px', maxWidth: '460px',
             }}>
               Beacon fuses Claude AI with financial market intelligence — giving analysts, traders, and researchers an unfair advantage through real-time data, AI-powered analysis, and regulatory intelligence.
             </p>
 
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '48px' }}>
-              <button className="btn-primary" onClick={() => navigate('/login')} style={{ padding: '14px 32px', fontSize: '15px' }}>
+            <div style={{ display: 'flex', gap: '12px', marginBottom: '40px', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={() => navigate('/login')} style={{ padding: '13px 28px', fontSize: '15px' }}>
                 Start Researching →
               </button>
-              <button className="btn-outline" style={{ padding: '14px 28px', fontSize: '15px' }}>
+              <button className="btn-outline" style={{ padding: '13px 24px', fontSize: '15px' }}>
                 Watch Demo
               </button>
             </div>
 
             {/* Stats */}
-            <div style={{ display: 'flex', gap: '40px' }}>
+            <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
               {[
                 { value: '5,000+', label: 'Stocks Tracked' },
                 { value: 'Real-time', label: 'NSE · BSE · MCX' },
                 { value: 'Claude AI', label: 'Powered Analysis' },
               ].map(stat => (
                 <div key={stat.label}>
-                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '24px', color: '#C8A84B' }}>{stat.value}</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '22px', color: '#C8A84B' }}>{stat.value}</div>
                   <div style={{ fontSize: '12px', color: '#7A94B0', marginTop: '2px', fontFamily: 'var(--font-mono)' }}>{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — SVG Hero */}
-          <div style={{ position: 'relative' }}>
+          {/* Right — SVG Hero (hidden on mobile via CSS class) */}
+          <div className="landing-hero-svg" style={{ position: 'relative' }}>
             <div style={{
               position: 'absolute', inset: '-20px',
               background: 'radial-gradient(ellipse at center, rgba(200,168,75,0.08) 0%, transparent 70%)',
@@ -425,17 +408,17 @@ export default function LandingPage() {
       </div>
 
       {/* Features */}
-      <div style={{ maxWidth: '1280px', margin: '100px auto', padding: '0 48px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '42px', color: '#E8EDF5', marginBottom: '16px' }}>
+      <div style={{ maxWidth: '1280px', margin: '80px auto', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(28px, 5vw, 42px)', color: '#E8EDF5', marginBottom: '16px' }}>
             The Complete Financial Intelligence Stack
           </h2>
           <p style={{ color: '#7A94B0', fontSize: '16px', maxWidth: '560px', margin: '0 auto' }}>
-            Built for Indian & global markets. Powered by Claude AI. Designed for serious financial professionals.
+            Built for Indian &amp; global markets. Powered by Claude AI. Designed for serious financial professionals.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+        <div className="landing-features-grid">
           {[
             {
               icon: '◈',
@@ -486,7 +469,7 @@ export default function LandingPage() {
                 background: '#0D1520',
                 border: `1px solid ${feature.color}22`,
                 borderRadius: '12px',
-                padding: '32px',
+                padding: '28px',
                 transition: 'all 0.3s',
                 cursor: 'default',
               }}
@@ -521,14 +504,12 @@ export default function LandingPage() {
       </div>
 
       {/* CTA */}
-      <div style={{
-        maxWidth: '1280px', margin: '0 auto 100px', padding: '0 48px',
-      }}>
-        <div style={{
+      <div style={{ maxWidth: '1280px', margin: '0 auto 80px', padding: '0 24px' }}>
+        <div className="landing-cta-padding" style={{
           background: 'linear-gradient(135deg, #0D1520 0%, #111D2E 100%)',
           border: '1px solid #1A2D45',
           borderRadius: '16px',
-          padding: '72px',
+          padding: '64px',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -538,7 +519,7 @@ export default function LandingPage() {
             width: '400px', height: '200px',
             background: 'radial-gradient(ellipse, rgba(200,168,75,0.15) 0%, transparent 70%)',
           }} />
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '48px', color: '#E8EDF5', marginBottom: '20px' }}>
+          <h2 className="landing-cta-title" style={{ fontFamily: 'var(--font-display)', fontSize: '48px', color: '#E8EDF5', marginBottom: '20px' }}>
             Ready to <span style={{ color: '#C8A84B', fontStyle: 'italic' }}>outperform</span> the market?
           </h2>
           <p style={{ color: '#7A94B0', fontSize: '17px', marginBottom: '40px', maxWidth: '480px', margin: '0 auto 40px' }}>
@@ -555,9 +536,9 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <footer style={{
+      <footer className="landing-footer" style={{
         borderTop: '1px solid #1A2D45',
-        padding: '32px 48px',
+        padding: '28px 24px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -568,6 +549,12 @@ export default function LandingPage() {
         <span>▲ BEACON FINANCIAL INTELLIGENCE — CLAUDE + BLOOMBERG</span>
         <span>⚠️ Not SEBI registered. For informational purposes only.</span>
       </footer>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .landing-tagline { display: none; }
+        }
+      `}</style>
     </div>
   );
 }
