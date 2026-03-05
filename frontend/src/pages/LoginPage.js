@@ -48,8 +48,6 @@ export default function LoginPage() {
 
   return (
     <div
-      data-barba="container"
-      data-barba-namespace="login"
       style={{
         minHeight: '100vh',
         background: 'var(--black)',
